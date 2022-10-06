@@ -10,14 +10,14 @@ app.use(express.urlencoded({ extended: false }))
 
 const port = 3001
 
-app.listen(port)
 app.get('/', async (req, res) => {
     try {
         const conn = await mysql.createConnection(config.db)
-        console.log(conn)
-        req.status(200).send({ message: 'Connected to database' })
+        res.status(200).send({ message: 'Connected to database' })
     } catch (err) {
         console.log(err)
         res.status(500).send({ message: 'Error connecting to database' })
     }
 })
+
+app.listen(port)
