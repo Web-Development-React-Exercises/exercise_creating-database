@@ -22,4 +22,27 @@ app.get('/', async (req, res) => {
     }
 })
 
+app.post('/new', async (req, res) => {
+    try {
+        const conn = await mysql.createConnection(config.db)
+        const [result,] = await conn.execute('insert into task (description) values (?)',[req.body.description])
+        res.status(200).json({id:result.insertId})
+
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ error: err.message })
+    }
+})
+
+app.delete('/delete', async (req, res) => {
+    try {
+        const conn = await mysql.createConnection(config.db)
+        await conn.execute('delete from task where id = ?', [req.query.id])
+        res.status(200).json({id:req.query.id})
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ error: err.message })
+    }
+})
+
 app.listen(port)
