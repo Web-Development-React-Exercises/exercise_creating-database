@@ -13,7 +13,9 @@ const port = 3001
 app.get('/', async (req, res) => {
     try {
         const conn = await mysql.createConnection(config.db)
-        res.status(200).send({ message: 'Connected to database' })
+        const [result,] = await conn.execute('SELECT * FROM task')
+        if (!result) result = [];
+        res.status(200).json(result)
     } catch (err) {
         console.log(err)
         res.status(500).send({ message: 'Error connecting to database' })
