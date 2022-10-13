@@ -17,8 +17,14 @@ async function deleteTask(id) {
     return id
 }
 
+async function updateTask(task) {
+    const result = await db.query('update task set description = ? where id = ?',[task.description,task.id])
+    return result
+}
+
 module.exports = { 
     getAllTasks,
     addTask,
-    deleteTask
+    deleteTask,
+    updateTask
 }
