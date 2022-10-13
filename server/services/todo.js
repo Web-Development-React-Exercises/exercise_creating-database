@@ -19,5 +19,6 @@ async function deleteTask(id) {
 
 module.exports = { 
     getAllTasks,
-    addTask
+    addTask,
+    deleteTask
 }
