@@ -56,8 +56,10 @@ function App() {
     axios.put(URL + '/edit', json, {headers: {'Content-Type': 'application/json'}})
       .then(()=>{
         const tempArray = [...data];
-        tempArray[id].description = editedTaskText;
+        const index = tempArray.findIndex((task) => task.id === id);
+        tempArray[index].description = editedTaskText;
         setData(tempArray);
+        setEditedTask(null);
       })
       .catch(error => { 
         alert('Error: ' + error.code + '\n' + error.message);
